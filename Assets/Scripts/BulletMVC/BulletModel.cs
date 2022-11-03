@@ -1,42 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletModel
+namespace Tanks.bullet
 {
-    private BulletController bulletController;
-    public BulletModel(float bulletSpeed, float bulletDamage, Transform bulletTransform, ParticleSystem shellExplosion)
+
+    public class BulletModel
     {
-        BulletSpeed = bulletSpeed;
-        BulletDamage = bulletDamage;
-        BulletTransform = bulletTransform;
-        ShellExplosion = shellExplosion;
+        private BulletController bulletController;
+        public BulletModel(float bulletSpeed, float bulletDamage, Transform bulletTransform, ParticleSystem shellExplosion)
+        {
+            BulletSpeed = bulletSpeed;
+            BulletDamage = bulletDamage;
+            BulletTransform = bulletTransform;
+            ShellExplosion = shellExplosion;
+        }
+
+        public void SetBulletController(BulletController _bulletController)
+        {
+            bulletController = _bulletController;
+        }
+
+
+        public float BulletSpeed
+        {
+            get;
+        }
+
+        public float BulletDamage
+        {
+            get;
+        }
+
+        public Transform BulletTransform
+        {
+            get;
+        }
+
+        public ParticleSystem ShellExplosion
+        {
+            get;
+        }
+
     }
-
-    public void SetBulletController(BulletController _bulletController)
-    {
-        bulletController = _bulletController;
-    }
-
-
-    public float BulletSpeed
-    {
-        get;
-    }
-
-    public float BulletDamage
-    {
-        get;
-    }
-
-    public Transform BulletTransform
-    {
-        get;
-    }
-
-    public ParticleSystem ShellExplosion
-    {
-        get;
-    }
-
 }

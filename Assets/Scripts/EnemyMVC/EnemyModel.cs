@@ -1,21 +1,22 @@
 using UnityEngine;
 using System.Collections.Generic;
-public class EnemyModel
+
+namespace Tanks.enemy
 {
-    List<Vector3> patrolPoints;
-    public EnemyModel(List<Vector3> spawnPoints)
+    public class EnemyModel
     {
-        patrolPoints = spawnPoints;
+        List<Vector3> patrolPoints;
+        public EnemyModel(List<Vector3> spawnPoints)
+        {
+            patrolPoints = spawnPoints;
+        }
+        public Vector3 GetPoint(int index)
+        {
+            return patrolPoints[index];
+        }
+        public int GetCount()
+        {
+            return patrolPoints.Count;
+        }
     }
-
-    public Vector3 GetPoint(int index)
-    {
-        return patrolPoints[index];
-    }
-
-    public int GetCount()
-    {
-        return patrolPoints.Count;
-    }
-
 }

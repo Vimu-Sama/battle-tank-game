@@ -1,37 +1,38 @@
 using UnityEngine;
 using System.Collections;
 using TankServices;
+using Tanks.tank;
 
-public class CheckRange : MonoBehaviour
+namespace Tanks.enemy
 {
-    WaitForSeconds waitForSeconds;
+    public class CheckRange : MonoBehaviour
+    {
+        WaitForSeconds waitForSeconds;
 
-    private void Awake()
-    {
-        waitForSeconds = new WaitForSeconds(3f);
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.GetComponent<TankView>()!=null)
+        private void Awake()
         {
-            Debug.Log("player detected!!");
-            ServiceEvents.Instance.ChasePlayer?.Invoke();
-            
+            waitForSeconds = new WaitForSeconds(3f);
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<TankView>() != null)
+        private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("player left!!");
-            StartCoroutine(StopAfterALittleWhile());
+            if (other.GetComponent<TankView>() != null)
+            {
+                ServiceEvents.Instance.ChasePlayer?.Invoke();
+            }
         }
-    }
 
-    private IEnumerator StopAfterALittleWhile()
-    {
-        yield return waitForSeconds;
-        ServiceEvents.Instance.StopChase?.Invoke();
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.GetComponent<TankView>() != null)
+            {
+                StartCoroutine(StopAfterALittleWhile());
+            }
+        }
+
+        private IEnumerator StopAfterALittleWhile()
+        {
+            yield return waitForSeconds;
+            ServiceEvents.Instance.StopChase?.Invoke();
+        }
     }
 }

@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
 namespace TankServices
 {
-    public class ServiceEvents: GenricSingleton<ServiceEvents>
+    public class ServiceEvents : GenricSingleton<ServiceEvents>
     {
         public Action<int> OnShoot;
         public Action OnPlayerDeath;
