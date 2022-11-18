@@ -23,7 +23,6 @@ namespace Tanks.bullet
                 bulletController.DisableBullet(col);
                 StartCoroutine(HoldBeforeDestroy());
             }
-
         }
         IEnumerator HoldBeforeDestroy()
         {

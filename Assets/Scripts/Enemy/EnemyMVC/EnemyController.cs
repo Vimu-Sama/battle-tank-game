@@ -13,6 +13,7 @@ namespace Tanks.enemy
         NavMeshAgent navMeshAgent;
         int tempIndex = 0;
         Vector3 currDestination;
+        public TankStateEnum tankStateEnum;
 
         public EnemyController(Vector3 spawnPoint, EnemyView _enemyView, EnemyModel _enemyModel)
         {
@@ -24,6 +25,9 @@ namespace Tanks.enemy
             enemyView.LinkController(this);
             ServiceEvents.Instance.ChasePlayer += ChasePlayer;
             ServiceEvents.Instance.StopChase += StopChasePlayer;
+            ServiceEvents.Instance.ShootPlayer += StartShootPlayer;
+            ServiceEvents.Instance.StopShoot += StopShootPlayer;
+            tankStateEnum = TankStateEnum.Patrol;
         }
         public void StopChasePlayer()
         {
@@ -32,6 +36,7 @@ namespace Tanks.enemy
         }
         public void ChasePlayer()
         {
+            enemyView.GetComponent<IdleState>().OnExitState();
             enemyView.GetComponent<PatrolState>().OnExitState();
             enemyView.GetComponent<ChaseState>().OnEnterState();
         }
@@ -45,6 +50,19 @@ namespace Tanks.enemy
                 meshRenderers[i].enabled = false;
             }
         }
+
+        public void StartShootPlayer()
+        {
+            enemyView.GetComponent<ChaseState>().OnExitState();
+            enemyView.GetComponent<AttackState>().OnEnterState();
+        }
+
+        public void StopShootPlayer()
+        {
+            enemyView.GetComponent<ChaseState>().OnEnterState();
+            enemyView.GetComponent<AttackState>().OnExitState();
+        }
+
         public void DestroyEnemy()
         {
             GameObject.Destroy(enemyView.gameObject);

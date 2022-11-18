@@ -6,7 +6,7 @@ using Tanks.bullet;
 
 namespace TankServices
 {
-    public class BulletService : GenricSingleton<BulletService>
+    public class BulletService : MonoBehaviour
     {
         int bulletFireCount = 0;
         BulletController bulletController;
@@ -18,14 +18,15 @@ namespace TankServices
         [SerializeField] int bulletPoolCount = 20;
         [SerializeField] ParticleSystem shellExplosion;
         //[serializefield] list<bullet>
-        public void InstantiateBullet(int spawnIndex)
+        public void InstantiateBullet(int spawnIndex, TankType tankType)
         {
-            ServiceEvents.Instance.OnShoot?.Invoke(++bulletFireCount);
+            if(tankType==TankType.player)
+                ServiceEvents.Instance.OnShoot?.Invoke(++bulletFireCount);
             if (bulletFireCount < bulletPoolCount)
             {
                 BulletModel bulletModel = new BulletModel(bulletSpecsList[spawnIndex].bulletSpeed,
                 bulletSpecsList[spawnIndex].bulletDamage, this.transform, shellExplosion);
-                bulletController = new BulletController(bulletViewList[spawnIndex], bulletModel);
+                bulletController = new BulletController(bulletViewList[spawnIndex], bulletModel, tankType);
             }
             else
             {

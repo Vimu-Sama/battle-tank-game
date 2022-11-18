@@ -5,19 +5,19 @@ using Tanks.tank;
 
 namespace Tanks.enemy
 {
-    public class CheckRange : MonoBehaviour
+    public class PlayerShootRange : MonoBehaviour
     {
-        WaitForSeconds waitForSeconds;
-
+        WaitForSeconds waitSeconds;
+        TankStateEnum tankStateBeforeChase;
         private void Awake()
         {
-            waitForSeconds = new WaitForSeconds(3f);
+            waitSeconds = new WaitForSeconds(2f);
         }
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<TankView>() != null)
             {
-                ServiceEvents.Instance.ChasePlayer?.Invoke();
+                ServiceEvents.Instance.ShootPlayer?.Invoke();
             }
         }
 
@@ -31,8 +31,8 @@ namespace Tanks.enemy
 
         private IEnumerator StopAfterALittleWhile()
         {
-            yield return waitForSeconds;
-            ServiceEvents.Instance.StopChase?.Invoke();
+            yield return waitSeconds;
+            ServiceEvents.Instance.StopShoot?.Invoke();
         }
     }
 }

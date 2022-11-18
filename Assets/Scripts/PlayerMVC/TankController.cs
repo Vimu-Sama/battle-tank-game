@@ -31,7 +31,7 @@ namespace Tanks.tank
         {
             if (isDisabled)
                 return;
-            tankView.bulletService.InstantiateBullet(tankModel.SpawnIndex);
+            tankView.bulletService.InstantiateBullet(tankModel.SpawnIndex, TankType.player);
         }
 
         public void DisableTank()

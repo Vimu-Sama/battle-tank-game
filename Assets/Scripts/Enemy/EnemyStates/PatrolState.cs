@@ -22,13 +22,14 @@ namespace Tanks.enemy
             {
                 tempIndex = Random.Range(0, spawnPoints.Count);
                 currDestination = spawnPoints[tempIndex];
+                GetComponent<IdleState>().OnEnterState();
+                OnExitState();
             }
             navMeshAgent.destination = currDestination;
         }
         public override void OnExitState()
         {
             base.OnExitState();
-            this.enabled = false;
         }
     }
 }

@@ -1,19 +1,22 @@
 using UnityEngine;
 using ObjectPool;
 using Tanks.tank;
+using Tanks.enemy;
 
 namespace Tanks.bullet
 {
     public class BulletController
     {
-        BulletModel bulletModel;
-        BulletView bulletView;
-        public BulletController(BulletView _bulletView, BulletModel _bulletModel)
+        private BulletModel bulletModel;
+        private BulletView bulletView;
+        private TankType tankType;
+        public BulletController(BulletView _bulletView, BulletModel _bulletModel, TankType _tankType)
         {
             bulletModel = _bulletModel;
             bulletView = GameObject.Instantiate<BulletView>(_bulletView, bulletModel.BulletTransform.position, bulletModel.BulletTransform.rotation);
             bulletView.SetBulletViewController(this);
             bulletModel.SetBulletController(this);
+            tankType = _tankType;
         }
 
         public void UpdateBulletMovement()
@@ -23,16 +26,31 @@ namespace Tanks.bullet
         }
         public void DisableBullet(Collision col)
         {
-            if (col.gameObject.GetComponent<TankView>() == null &&
-                col.gameObject.GetComponent<BulletView>() == null)
+            if(tankType != TankType.enemy)
             {
-                bulletView.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                bulletView.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                bulletView.gameObject.GetComponent<MeshRenderer>().enabled = false;
-                bulletView.gameObject.GetComponent<ParticleSystem>().Play();
+                if (col.gameObject.GetComponent<TankView>() == null &&
+                    col.gameObject.GetComponent<BulletView>() == null)
+                {
+                    DisableBulletHelper();
+                }
+            }
+            else
+            {
+                if (col.gameObject.GetComponent<EnemyView>() == null &&
+                    col.gameObject.GetComponent<BulletView>() == null)
+                {
+                    DisableBulletHelper();
+                }
             }
         }
 
+        private void DisableBulletHelper()
+        {
+            bulletView.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            bulletView.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            bulletView.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            bulletView.gameObject.GetComponent<ParticleSystem>().Play();
+        }
 
         public void DestroyBullet()
         {

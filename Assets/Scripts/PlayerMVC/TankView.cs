@@ -48,7 +48,6 @@ namespace Tanks.tank
                 tankTurretMaterial.enabled = false;
                 tankBodyMaterial.enabled = false;
                 StartCoroutine(WaitBeforeDestroy());
-
             }
         }
 

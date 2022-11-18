@@ -9,6 +9,8 @@ namespace TankServices
         public Action OnPlayerDeath;
         public Action ChasePlayer;
         public Action StopChase;
+        public Action ShootPlayer;
+        public Action StopShoot;
     }
 
 }
