@@ -4,5 +4,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TanksList", menuName = "ScriptableObjects/TankListScriptableObject")]
 public class TankScriptableObjectList: ScriptableObject
 {
-    public List<TankScriptableObjectScript> tanks;
+    public TankScriptableObjectScript[] tanks;
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using Cinemachine;
 using TankServices;
@@ -6,19 +7,21 @@ using Tanks.enemy;
 
 namespace Tanks.tank
 {
-    public class TankView : GenricSingleton<TankView>
+    public class TankView : GenericSingleton<TankView>
     {
         private TankController tankController;
         WaitForSeconds waitForSeconds = new WaitForSeconds(2f); //can be serialized in case of making it more easier for designers
         [HideInInspector]
         public Joystick joystick;
         [HideInInspector]
+        public Button button;
+        [HideInInspector]
         public CinemachineVirtualCamera virtualCamera;
         [HideInInspector]
         public Material materialFromScriptableObject;
         [SerializeField] MeshRenderer tankTurretMaterial;
         [SerializeField] MeshRenderer tankBodyMaterial;
-        public BulletService bulletService;
+        public BulletManager BulletManager;
         public void SetTankController(TankController _tankController)
         {
             virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
@@ -26,6 +29,7 @@ namespace Tanks.tank
             tankController = _tankController;
             tankTurretMaterial.material = materialFromScriptableObject;
             tankBodyMaterial.material = materialFromScriptableObject;
+            button.onClick.AddListener(ShootBullet);
         }
 
         private void Update()
@@ -36,7 +40,12 @@ namespace Tanks.tank
                 tankController.UpdateMovementAndRotation(joystick.Horizontal, joystick.Vertical);
             }
             if (Input.GetKeyDown(KeyCode.Space))
-                tankController.Shoot();
+                ShootBullet();
+        }
+
+        private void ShootBullet()
+        {
+            tankController.Shoot();
         }
 
         private void OnCollisionEnter(Collision col)

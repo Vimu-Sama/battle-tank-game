@@ -4,9 +4,8 @@ using Tanks.enemy;
 
 namespace TankServices
 {
-    public class EnemyTankService : GenricSingleton<EnemyTankService>
+    public class EnemyTankService : GenericSingleton<EnemyTankService>
     {
-        EnemyController enemyController;
         [SerializeField] EnemyView enemyView;
         [SerializeField] List<Vector3> spawnPoints;
         //[SerializeField] float EnemyChaseSpeed; to be used in future
@@ -14,7 +13,7 @@ namespace TankServices
         {
             EnemyModel enemyModel = new EnemyModel(spawnPoints);
             int a = Random.Range(0, spawnPoints.Count);
-            enemyController = new EnemyController(spawnPoints[a], enemyView, enemyModel);
+            new EnemyController(spawnPoints[a], enemyView, enemyModel);
         }
 
     }

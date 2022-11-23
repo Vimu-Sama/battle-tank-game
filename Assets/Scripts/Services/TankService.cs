@@ -1,21 +1,22 @@
 using UnityEngine;
 using Cinemachine;
 using Tanks.tank;
+using UnityEngine.UI;
 
 namespace TankServices
 {
-    public class TankService : GenricSingleton<TankService>
+    public class TankService : GenericSingleton<TankService>
     {
-        TankController tankController;
         [SerializeField] TankView tankView;
         [SerializeField] Joystick joystick;
+        [SerializeField] Button shootButton;
         [SerializeField] CinemachineVirtualCamera virtualCamera;
         [SerializeField] TankScriptableObjectList tanksList;
         [SerializeField] int spawnIndex;
         private bool shouldDestroy = false;
         private void Start()
         {
-            if (tanksList.tanks.Count <= spawnIndex)
+            if (tanksList.tanks.Length <= spawnIndex)
             {
                 Debug.LogError("Wrong Index entered. Check the index for " +
                     "spawning the tank!!!");
@@ -24,16 +25,14 @@ namespace TankServices
             TankModel tankModel = new TankModel(tanksList.tanks[spawnIndex], spawnIndex);
             tankView.materialFromScriptableObject = tanksList.tanks[spawnIndex].tankMaterial;
             tankView.joystick = joystick;
-            tankController = new TankController(tankView, tankModel, spawnIndex);
+            tankView.button = shootButton;
+            new TankController(tankView, tankModel, spawnIndex);
+            ServiceEvents.Instance.OnPlayerDeath+= PlayerDestroyed;
         }
 
-        private void Update()
+        private void PlayerDestroyed()
         {
-            if (tankController == null)
-            {
-                shouldDestroy = true;
-            }
-
+            shouldDestroy = true;
         }
 
         public bool ShouldDestroy

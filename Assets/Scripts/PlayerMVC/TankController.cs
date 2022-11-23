@@ -14,7 +14,6 @@ namespace Tanks.tank
             tankView = GameObject.Instantiate<TankView>(_tankView);
             tankModel = _tankModel;
             tankView.SetTankController(this);
-            tankModel.SetTankController(this);
         }
 
         public void UpdateMovementAndRotation(float horizontalInput, float verticalInput)
@@ -31,7 +30,7 @@ namespace Tanks.tank
         {
             if (isDisabled)
                 return;
-            tankView.bulletService.InstantiateBullet(tankModel.SpawnIndex, TankType.player);
+            tankView.BulletManager.InstantiateBullet(tankModel.SpawnIndex, TankType.player);
         }
 
         public void DisableTank()

@@ -3,7 +3,7 @@ using System;
 
 namespace TankServices
 {
-    public class AchievementSystem : GenricSingleton<AchievementSystem>
+    public class AchievementSystem : GenericSingleton<AchievementSystem>
     {
         private void OnEnable()
         {

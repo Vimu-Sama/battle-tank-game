@@ -4,7 +4,7 @@ using TankServices;
 
 namespace Tanks.tank
 {
-    public class GameEndingScript : GenricSingleton<GameEndingScript>
+    public class GameEndingScript : GenericSingleton<GameEndingScript>
     {
         [HideInInspector]
         public bool startDestroying = false;

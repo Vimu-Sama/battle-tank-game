@@ -7,20 +7,19 @@ namespace Tanks.enemy
 {
     public class AttackState : TankState
     {
-        private BulletService bulletService;
+        private BulletManager BulletManager;
         private float timePassed;
         [SerializeField] private float timeGapToFire=2f ;
         
         private void Awake()
         {
-            bulletService = GetComponent<BulletService>();
-            Debug.Log("Got the component");
+            BulletManager = GetComponent<BulletManager>();
         }
 
         public override void OnEnterState()
         {
             base.OnEnterState();
-            bulletService.InstantiateBullet(0, TankType.enemy);
+            BulletManager.InstantiateBullet(0, TankType.enemy);
         }
 
         private void Update()
@@ -28,7 +27,7 @@ namespace Tanks.enemy
             timePassed+= Time.deltaTime;
             if(timePassed>timeGapToFire)
             {
-                bulletService.InstantiateBullet(0, TankType.enemy);
+                BulletManager.InstantiateBullet(0, TankType.enemy);
                 timePassed = 0;
             }
         }
