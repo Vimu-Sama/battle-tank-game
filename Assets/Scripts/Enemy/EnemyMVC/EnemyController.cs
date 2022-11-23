@@ -23,23 +23,10 @@ namespace Tanks.enemy
             enemyModel = _enemyModel;
             enemyView.GetComponent<PatrolState>().OnEnterState();
             enemyView.LinkController(this);
-            ServiceEvents.Instance.ChasePlayer += ChasePlayer;
-            ServiceEvents.Instance.StopChase += StopChasePlayer;
-            ServiceEvents.Instance.ShootPlayer += StartShootPlayer;
-            ServiceEvents.Instance.StopShoot += StopShootPlayer;
+            
             tankStateEnum = TankStateEnum.Patrol;
         }
-        public void StopChasePlayer()
-        {
-            enemyView.GetComponent<ChaseState>().OnExitState();
-            enemyView.GetComponent<PatrolState>().OnEnterState();
-        }
-        public void ChasePlayer()
-        {
-            enemyView.GetComponent<IdleState>().OnExitState();
-            enemyView.GetComponent<PatrolState>().OnExitState();
-            enemyView.GetComponent<ChaseState>().OnEnterState();
-        }
+        
         public void DisableEnemy(List<MeshRenderer> meshRenderers)
         {
             isDisabled = true;
@@ -50,19 +37,6 @@ namespace Tanks.enemy
                 meshRenderers[i].enabled = false;
             }
         }
-
-        public void StartShootPlayer()
-        {
-            enemyView.GetComponent<ChaseState>().OnExitState();
-            enemyView.GetComponent<AttackState>().OnEnterState();
-        }
-
-        public void StopShootPlayer()
-        {
-            enemyView.GetComponent<ChaseState>().OnEnterState();
-            enemyView.GetComponent<AttackState>().OnExitState();
-        }
-
         public void DestroyEnemy()
         {
             GameObject.Destroy(enemyView.gameObject);
