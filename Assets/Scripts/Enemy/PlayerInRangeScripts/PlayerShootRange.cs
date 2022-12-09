@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using TankServices;
-using Tanks.tank;
+using Tanks.Tank;
 
-namespace Tanks.enemy
+namespace Tanks.Enemy
 {
     public class PlayerShootRange : MonoBehaviour
     {

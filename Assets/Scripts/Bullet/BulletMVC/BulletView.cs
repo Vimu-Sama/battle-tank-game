@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Tanks.bullet
+namespace Tanks.Bullet
 {
     public class BulletView : MonoBehaviour
     {
@@ -27,7 +27,7 @@ namespace Tanks.bullet
         IEnumerator HoldBeforeDestroy()
         {
             yield return timeToDisable;
-            bulletController.DestroyBullet();
+            bulletController.ReturnBulletToBulletPool();
         }
     }
 }

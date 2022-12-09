@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
+using Cinemachine;
 
-namespace Tanks.tank
+namespace Tanks.Tank
 {
     public class TankController
     {
@@ -9,11 +11,11 @@ namespace Tanks.tank
         Vector3 moveVector = Vector3.zero;
         bool isDisabled = false;
 
-        public TankController(TankView _tankView, TankModel _tankModel, int spawnIndex)
+        public TankController(TankView _tankView, TankModel _tankModel, int spawnIndex, Joystick joystick, Button shootButton, CinemachineVirtualCamera virtualCamera)
         {
             tankView = GameObject.Instantiate<TankView>(_tankView);
             tankModel = _tankModel;
-            tankView.SetTankController(this);
+            tankView.SetTankController(this, joystick, shootButton, virtualCamera);
         }
 
         public void UpdateMovementAndRotation(float horizontalInput, float verticalInput)

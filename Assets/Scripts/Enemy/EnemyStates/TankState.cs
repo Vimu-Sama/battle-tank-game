@@ -1,17 +1,29 @@
 using UnityEngine;
+using UnityEngine.AI;
+using Tanks.Tank;
+using TankServices;
 
-namespace Tanks.enemy
+namespace Tanks.Enemy
 {
     public class TankState : MonoBehaviour
     {
-        protected EnemyView enemyView;
+        protected PatrolState patrolState;
+        protected NavMeshAgent navMeshAgent;
+        protected TankView tankView;
+        protected BulletManager bulletManager;
+        protected ChaseState chaseState;
         private void Awake()
         {
-            enemyView = GetComponent<EnemyView>();
+            patrolState = GetComponent<PatrolState>();
+            navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
+            tankView= TankView.Instance;
+            bulletManager = GetComponent<BulletManager>();
+            chaseState = GetComponent<ChaseState>();
         }
+
         public virtual void OnEnterState()
         {
-            this.enabled = true ;
+            this.enabled = true;
         }
         public virtual void OnExitState()
         {
@@ -19,5 +31,3 @@ namespace Tanks.enemy
         }
     }
 }
-
-

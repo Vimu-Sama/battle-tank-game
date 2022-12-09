@@ -1,6 +1,6 @@
 using UnityEngine;
 using Cinemachine;
-using Tanks.tank;
+using Tanks.Tank;
 using UnityEngine.UI;
 
 namespace TankServices
@@ -24,10 +24,11 @@ namespace TankServices
             }
             TankModel tankModel = new TankModel(tanksList.tanks[spawnIndex], spawnIndex);
             tankView.materialFromScriptableObject = tanksList.tanks[spawnIndex].tankMaterial;
-            tankView.joystick = joystick;
-            tankView.button = shootButton;
-            new TankController(tankView, tankModel, spawnIndex);
-            ServiceEvents.Instance.OnPlayerDeath+= PlayerDestroyed;
+            //tankView.joystick = joystick;
+            //tankView.button = shootButton;
+            //tankView.virtualCamera = virtualCamera;
+            new TankController(tankView, tankModel, spawnIndex, joystick, shootButton, virtualCamera);
+            ServiceEvents.Instance.OnPlayerDeath += PlayerDestroyed;
         }
 
         private void PlayerDestroyed()

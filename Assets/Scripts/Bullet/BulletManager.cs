@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using ObjectPool;
-using Tanks.bullet;
+using Tanks.Bullet;
 
 namespace TankServices
 {

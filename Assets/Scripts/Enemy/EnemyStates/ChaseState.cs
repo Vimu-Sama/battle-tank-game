@@ -1,30 +1,15 @@
 using UnityEngine;
-using Tanks.tank;
+using Tanks.Tank;
 using UnityEngine.AI;
 
-namespace Tanks.enemy
+namespace Tanks.Enemy
 {
     public class ChaseState : TankState
     {
-        private TankView tankView;
-        private NavMeshAgent navmeshAgent;
-        public override void OnEnterState()
-        {
-            base.OnEnterState();
-            tankView = TankView.Instance;
-            navmeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
-        }
-
         private void Update()
         {
-            if(tankView!=null)
-                navmeshAgent.destination = tankView.transform.position;
-        }
-
-
-        public override void OnExitState()
-        {
-            base.OnExitState();
+            if (tankView != null)
+                navMeshAgent.destination = tankView.transform.position;
         }
     }
 }

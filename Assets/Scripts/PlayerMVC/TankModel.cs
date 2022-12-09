@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Tanks.tank
+namespace Tanks.Tank
 {
     public class TankModel
     {

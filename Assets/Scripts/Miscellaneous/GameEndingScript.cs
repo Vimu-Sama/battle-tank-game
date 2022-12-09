@@ -2,16 +2,13 @@ using System.Collections;
 using UnityEngine;
 using TankServices;
 
-namespace Tanks.tank
+namespace Tanks.Tank
 {
     public class GameEndingScript : GenericSingleton<GameEndingScript>
     {
-        [HideInInspector]
-        public bool startDestroying = false;
         [SerializeField] float DestroyVFXDuration = 4f;
         WaitForSeconds waitForDestroy;
         bool playerDestroy = true;
-        GameObject[] gameObjects;
         private void OnEnable()
         {
             ServiceEvents.Instance.OnPlayerDeath += DisableGameObjects;
@@ -30,6 +27,7 @@ namespace Tanks.tank
 
         private IEnumerator DeleteAllGameObjects() //cinematic destruction of the GameObjects after player death
         {
+            GameObject[] gameObjects;
             gameObjects = GameObject.FindGameObjectsWithTag("LevelArt");
             for (int i = 0; i < gameObjects.Length; i++)
             {
@@ -38,7 +36,6 @@ namespace Tanks.tank
                     gameObjects[i].GetComponent<ParticleSystem>().Play();
                 yield return waitForDestroy;
                 GameObject.Destroy(gameObjects[i]);
-
             }
         }
 

@@ -1,8 +1,7 @@
 using UnityEngine;
 
-namespace Tanks.bullet
+namespace Tanks.Bullet
 {
-
     public class BulletModel
     {
         public BulletModel(float bulletSpeed, float bulletDamage, Transform bulletTransform, ParticleSystem shellExplosion)

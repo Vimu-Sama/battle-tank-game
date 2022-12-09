@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fec09d953037e943afb756a79c45c5c, type: 3}
   m_Name: SwiftTank
   m_EditorClassIdentifier: 
-  tankTypeName: Speedy
+  tankType: 0
   tankSpeed: 10
   tankHealth: 50
   damageOutput: 7

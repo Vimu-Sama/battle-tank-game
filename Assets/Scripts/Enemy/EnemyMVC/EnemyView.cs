@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Tanks.bullet;
+using Tanks.Bullet;
 using TankServices;
 
-namespace Tanks.enemy
+namespace Tanks.Enemy
 {
     public class EnemyView : MonoBehaviour
     {
@@ -22,6 +22,7 @@ namespace Tanks.enemy
             chaseState = GetComponent<ChaseState>();
             patrolState = GetComponent<PatrolState>();
             idleState = GetComponent<IdleState>();
+            attackState = GetComponent<AttackState>();
             ServiceEvents.Instance.ChasePlayer += ChasePlayer;
             ServiceEvents.Instance.StopChase += StopChasePlayer;
             ServiceEvents.Instance.ShootPlayer += StartShootPlayer;
@@ -61,7 +62,7 @@ namespace Tanks.enemy
         {
             if (col.gameObject.GetComponent<BulletView>() != null)
             {
-                enemyController.DisableEnemy(meshRenderers);
+                DisableEnemy();
                 StartCoroutine(DestroyAfterWait());
             }
         }
@@ -69,6 +70,16 @@ namespace Tanks.enemy
         {
             yield return WaitBeforeDestroy;
             enemyController.DestroyEnemy();
+        }
+
+        public void DisableEnemy()
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            GetComponent<ParticleSystem>().Play();
+            for (int i = 0; i < meshRenderers.Count; i++)
+            {
+                meshRenderers[i].enabled = false;
+            }
         }
     }
 }

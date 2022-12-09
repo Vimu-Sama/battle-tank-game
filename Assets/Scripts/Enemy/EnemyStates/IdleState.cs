@@ -1,13 +1,13 @@
 using UnityEngine;
-using Tanks.tank;
+using Tanks.Tank;
 using UnityEngine.AI;
 
-namespace Tanks.enemy
+namespace Tanks.Enemy
 {
     public class IdleState : TankState
     {
         [SerializeField] float waitTime = 5f;
-        float timePassed= 0f;
+        float timePassed = 0f;
 
         public override void OnEnterState()
         {
@@ -18,7 +18,7 @@ namespace Tanks.enemy
         private void Update()
         {
             timePassed += Time.deltaTime;
-            if(timePassed>waitTime)
+            if (timePassed > waitTime)
             {
                 OnExitState();
             }
@@ -26,7 +26,7 @@ namespace Tanks.enemy
 
         public override void OnExitState()
         {
-            GetComponent<PatrolState>().OnEnterState();
+            patrolState.OnEnterState();
             base.OnExitState();
         }
 

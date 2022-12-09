@@ -1,9 +1,9 @@
 using UnityEngine;
 using ObjectPool;
-using Tanks.tank;
-using Tanks.enemy;
+using Tanks.Tank;
+using Tanks.Enemy;
 
-namespace Tanks.bullet
+namespace Tanks.Bullet
 {
     public class BulletController
     {
@@ -35,14 +35,14 @@ namespace Tanks.bullet
         {
             if (col.gameObject.GetComponent<BulletView>() != null)
                 return;
-            if((tankType != TankType.enemy && col.gameObject.GetComponent<TankView>() == null)
-                || (tankType!=TankType.player && col.gameObject.GetComponent<EnemyView>()==null))
+            if (!((tankType == TankType.player && col.gameObject.GetComponent<TankView>() != null)
+                || (tankType == TankType.enemy && col.gameObject.GetComponent<EnemyView>() != null)))
             {
-                DisableBulletHelper();
+                MimicBulletDestroy();
             }
         }
 
-        private void DisableBulletHelper()
+        private void MimicBulletDestroy()
         {
             rigidBody.isKinematic = true;
             capsuleCollider.enabled = false;
@@ -50,7 +50,7 @@ namespace Tanks.bullet
             particleSystem.Play();
         }
 
-        public void DestroyBullet()
+        public void ReturnBulletToBulletPool()
         {
             particleSystem.Stop();
             GenericPoolScript<BulletController>.Instance.Enqueue(this);
